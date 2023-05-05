@@ -1,0 +1,77 @@
+.comments{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 10px;
+    border-top: 1px solid lightgrey;
+    padding: 20px;
+}
+form{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+}
+form input{
+    height:40px ;
+    flex: 1;
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 20px;
+    background-color: rgb(247, 244, 244);
+    border:1px solid grey;
+}
+form input::placeholder{
+    color: grey;
+}
+form button{
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgb(247, 244, 244);
+    color: #000;
+    font-weight: bold;
+    border: 0.5px solid #fff;
+    
+}
+form button:hover{
+    background-color: rgb(41, 41, 41);
+    color: #fff;
+}
+.comment {
+    display: flex;
+    gap: 20px;
+    padding: 5px;
+    flex: 1;
+}
+.comments img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.comments p{
+    word-wrap: break-word;
+    word-break: break-all;
+    font-size: 16px;
+}
+.info{
+    flex: 5;
+   
+}
+.info span{
+    font-size: 18px;
+    color: #000;
+    font-weight: 600;
+}
+.info p{
+    color: rgb(21, 21, 21);
+}
+.date{
+    flex: 1;
+    color: grey;
+}
+
+
+
+
+

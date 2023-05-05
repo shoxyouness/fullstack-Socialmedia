@@ -1,0 +1,38 @@
+.stories{
+    display: flex;
+    height: 250px;
+    gap: 10px;
+   
+}
+.storie{
+    flex: 1;
+    position: relative;
+   
+    
+}
+.storie span{
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: #fff;
+    font-weight: 500;
+}
+.storie button{
+    background-color: rgb(63, 63, 228);
+    color: #fff;
+    border-radius: 50%;
+    border:none;
+    font-size: 16px;
+    position: absolute;
+    left:10px;
+    bottom:30px ;
+    cursor: pointer;
+}
+.storie img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    
+}
+    
+        

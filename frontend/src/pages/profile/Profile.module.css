@@ -1,0 +1,53 @@
+.home {
+    width: 100%;
+    margin: 0;
+}
+
+.main {
+    display: flex;
+}
+.profile {
+    flex-basis: 50%;
+    flex: 4;
+    padding: 12px;
+    background-color: rgb(233, 231, 231);
+}
+.background{
+    width: 100%;
+    height: 300px;
+}
+.background img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.info{
+    height: 100px;
+    background-color: #fff;
+    position: relative;
+    
+}
+.imgprofile{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+    bottom: 30px;
+    border: 8px solid #fff;
+}
+.user{
+    position: absolute;
+    left: 200px;
+    padding: 20px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+   
+}
+
+.user span{
+    font-size: 24px;
+    font-weight: 500;
+}

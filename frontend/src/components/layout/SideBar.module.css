@@ -1,0 +1,48 @@
+.sidebar{
+    flex: 1;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    position: sticky;
+    top: 60px;
+    height: calc(100vh - 60px) ;
+    border-right: 1px solid lightgrey;
+   
+   
+
+}
+
+.user{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+.user img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.items{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom:20px ;
+    border-bottom: 1px solid lightgrey;
+    padding-bottom: 10px;
+    
+}
+.item{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 10px;
+}   
+.item img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
