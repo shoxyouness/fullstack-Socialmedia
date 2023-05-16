@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react'
 const Posts=()=>{
 const { isLoading, error, data } = useQuery(["posts"], () =>
   axios.get("http://localhost:8800/api/posts",{  withCredentials: true,}).then((res) => {
-    console.log(res);
       return res.data;
     })
    

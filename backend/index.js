@@ -24,7 +24,6 @@ app.use(cors(
 app.use(cookieParser()); 
 
 
-
 app.use("/api/upload", UploadRouter);
 app.use("/api/users", userRouter);
 app.use("/api/posts", postsRouter);

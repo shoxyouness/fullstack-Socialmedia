@@ -7,9 +7,42 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Link } from "react-router-dom";
 import Comments from './Comments';
-import { useState } from 'react';
+import { useState,useContext } from 'react';
+import { AuthContext } from '../../../context/AuthContext';
+import {useQuery,useQueryClient,useMutation } from '@tanstack/react-query'
+import axios from 'axios'
+
 const Post=({post})=>{
+    const [likes,setLikes]=useState([]);
     const [commentClicked,setCommentClicked]=useState(false);
+    const {currentUser}=useContext(AuthContext);
+    const { isLoading, error, data } = useQuery(["likes",post.id], () =>
+    axios.get(`http://localhost:8800/api/likes?postId=${post.id}`).then((res) => {
+    setLikes(res.data)
+      return res.data;
+    })
+   
+);
+    const queryClient = useQueryClient();
+    const mutation = useMutation(
+    async(liked)=>{
+    if(liked)
+       await axios.delete("http://localhost:8800/api/likes?postId="+post.id,{withCredentials: true})
+      else
+        await axios.post("http://localhost:8800/api/likes",{postId:post.id},{withCredentials: true})
+
+    }, {
+    onSuccess: () => { 
+      // Invalidate and refetch
+      queryClient.invalidateQueries("likes")
+    },
+  })
+
+
+    const likeHandler=(e)=>{
+        mutation.mutate(likes.includes(currentUser.id))
+    }
+
     return(
         <div className={classes.post}>
             <div className={classes.info}>
@@ -30,8 +63,8 @@ const Post=({post})=>{
             </div>
             <div className={classes.features}>
                 <div>
-                <FavoriteBorderOutlinedIcon/>
-                <span>Like</span>
+                {likes.includes(currentUser.id) ?<FavoriteOutlinedIcon style={{color:"red"}} onClick={likeHandler}/>:<FavoriteBorderOutlinedIcon onClick={likeHandler}/>}
+                <span>{likes.length} likes</span>
                 </div>
                <div  onClick={()=>{
                     setCommentClicked((prev)=>{
@@ -44,9 +77,9 @@ const Post=({post})=>{
                 <div>
                 <ShareOutlinedIcon/>
                 <span>Share</span>
-                </div>
+                </div> 
             </div>
-            {commentClicked && <Comments/>}
+            {commentClicked && <Comments postId={post.id}/>}
         </div>
     )
 }   

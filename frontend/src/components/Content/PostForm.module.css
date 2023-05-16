@@ -26,6 +26,7 @@
     word-break: break-all;
     overflow-wrap: break-word;
     font-size: 20px;
+    flex: 2;
     
 }
 .postform form textarea::-webkit-scrollbar{
@@ -34,9 +35,10 @@
 .postform form textarea:focus{
     outline: none;
 }
-.postform form img{
+.profilePic{
     width: 40px;
     height: 40px;
+    flex-basis: 40px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -61,4 +63,9 @@
 .feature img{
     width: 30px;
     height: 30px;
+}
+.uploadedImg{
+    width: 60px;
+    height: 60px;
+    
 }

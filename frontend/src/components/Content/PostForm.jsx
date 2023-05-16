@@ -53,7 +53,10 @@ export  const PostForm =()=>{
     }
     const fileChangeHandler=(e)=>{
         setFile(e.target.files[0]);
-        console.log(e.target.files[0])
+        console.log(e.target.files[0]);
+    }
+    const removeImgHandler=()=>{
+        setFile(null);
     }
     const postHandler=async()=>{
         let imageUrl="";
@@ -65,8 +68,9 @@ export  const PostForm =()=>{
     return(
             <div className={classes.postform}>
                 <form > 
-                    <img src={currentUser.profilePic}/>
+                    <img src={currentUser.profilePic} className={classes.profilePic}/>
                     <textarea  name ="desc" type="text" placeholder={`What's in Your Mind ${currentUser.name}`} value={desc} onChange={descChangeHandler}/>
+                    {file && <img src={URL.createObjectURL(file)} className={classes.uploadedImg}  onClick={removeImgHandler}/>}
                 </form>
 
                 <div className={classes.actions}>

@@ -13,13 +13,23 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import RightBar from '../../components/layout/RightBar';
 import Posts from '../../components/Content/post/Posts';
 import { Button } from '../../components/UI/Button';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import {useQuery,useQueryClient,useMutation } from '@tanstack/react-query'
+import axios from 'axios'
+import { useLocation } from 'react-router-dom';
 
 const Profile=()=>{
     const {currentUser}=useContext(AuthContext);
-
-
+    const userId=useLocation().pathname.split("/")[2];
+    const [profileInfos,setProfileInfos]=useState({});
+    const { isLoading, error, data } = useQuery(["user"], () =>
+    axios.get(`http://localhost:8800/api/users/find/${userId}`).then((res) => {
+        setProfileInfos(res.data);
+      return res.data;
+    })
+    );
+    console.log(data);
     return(
      
         <div className={classes.home}>
@@ -28,13 +38,13 @@ const Profile=()=>{
                 <SideBar />
                 <div className={classes.profile}>
                     <div className={classes.background}>
-                        <img src={currentUser.coverPic} />
+                        <img src={profileInfos.coverPic} />
                     </div>
                     <div className={classes.uinfo}>
                     <div className={classes.info}>
-                    <img src={currentUser.profilePic} className={classes.imgprofile} />
+                    <img src={profileInfos.profilePic} className={classes.imgprofile} />
                     <div className={classes.user}>
-                        <span>{currentUser.name}</span>
+                        <span>{profileInfos.name}</span>
                         <div>
                             <Button>Follow</Button>
                             <Button>message</Button>

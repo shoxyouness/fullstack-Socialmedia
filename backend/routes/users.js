@@ -1,6 +1,6 @@
 import express  from "express";
-import {}from "../controllers/user.js"
+import { getProfile } from "../controllers/user.js";
 const router = express.Router();
-router.get("",);
+router.get("/find/:userId",getProfile);
 
 export default router;
