@@ -5,9 +5,9 @@ import {useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 
-const Posts=()=>{
+const Posts=({userId})=>{
 const { isLoading, error, data } = useQuery(["posts"], () =>
-  axios.get("http://localhost:8800/api/posts",{  withCredentials: true,}).then((res) => {
+ axios.get(`http://localhost:8800/api/posts?userId=`+userId,{  withCredentials: true}).then((res) => {
       return res.data;
     })
    

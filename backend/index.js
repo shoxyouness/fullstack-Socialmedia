@@ -7,7 +7,7 @@ import commentsRouter from "./routes/comments.js";
 import cors from "cors"
 import cookieParser from "cookie-parser";
 import UploadRouter from "./routes/upload.js";
-
+import relationRouter from "./routes/relations.js"
 const app = express();
 
 
@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(cors(
   {origin:"http://localhost:3000"}
 ));
-app.use(cookieParser()); 
+app.use(cookieParser());  
 
 
 app.use("/api/upload", UploadRouter);
@@ -30,7 +30,8 @@ app.use("/api/posts", postsRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/comments", commentsRouter); 
 app.use("/api/likes", likesRouter);
-
+app.use("/api/relation", relationRouter);
 app.listen(8800, () => {
   console.log("localhost:8800");
 });
+ 

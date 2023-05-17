@@ -28,7 +28,7 @@ const App = () => {
       element: <Login />,
     },
     {
-      path: "/register",
+      path: "/register", 
       element: <Register />,
     },
     {

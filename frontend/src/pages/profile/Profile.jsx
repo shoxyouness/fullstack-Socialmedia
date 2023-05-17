@@ -18,18 +18,46 @@ import { AuthContext } from '../../context/AuthContext';
 import {useQuery,useQueryClient,useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom';
-
+import UpdateUserProfile from "./UpdateUserProfile"
 const Profile=()=>{
     const {currentUser}=useContext(AuthContext);
     const userId=useLocation().pathname.split("/")[2];
     const [profileInfos,setProfileInfos]=useState({});
+    const [updateClicked,setUpdateClicked]=useState(false);
     const { isLoading, error, data } = useQuery(["user"], () =>
     axios.get(`http://localhost:8800/api/users/find/${userId}`).then((res) => {
-        setProfileInfos(res.data);
       return res.data;
     })
     );
-    console.log(data);
+     const { isLoading:relationIsloading, error:err, data:relation } = useQuery(["relation"], () =>
+    axios.get(`http://localhost:8800/api/relation?userId=${userId}`,{withCredentials:true}).then((res) => {
+      return res.data;
+    })
+    );
+    const queryClient = useQueryClient();
+    const mutation = useMutation(
+    async(followed)=>{
+        if(followed)
+            await axios.delete(`http://localhost:8800/api/relation?userId=${userId}`,{withCredentials: true})
+        else
+            await axios.post("http://localhost:8800/api/relation",{userId:userId},{withCredentials: true})
+
+    }, {
+    onSuccess: () => { 
+      // Invalidate and refetch
+      queryClient.invalidateQueries("relation")
+    },
+  })
+    
+    const updateHandler=()=>{
+        setUpdateClicked(true);
+    }
+    const closeHandler=()=>{
+        setUpdateClicked(false);
+    }
+    const followHandler=async()=>{
+        mutation.mutate(relation.includes(currentUser.id));
+    }
     return(
      
         <div className={classes.home}>
@@ -45,15 +73,19 @@ const Profile=()=>{
                     <img src={profileInfos.profilePic} className={classes.imgprofile} />
                     <div className={classes.user}>
                         <span>{profileInfos.name}</span>
-                        <div>
-                            <Button>Follow</Button>
+                       { currentUser.id==userId ? <div><Button onClick={updateHandler}>Update</Button></div> :
+                       <div>
+                            <Button onClick={followHandler}>{relationIsloading ? "Loading...":relation.includes(currentUser.id)? "following" :"follow" }</Button>
                             <Button>message</Button>
-                        </div>
+                        </div>}
+                        {updateClicked && <UpdateUserProfile onClose={closeHandler} />}
+                         
                     </div>
+                 
                     </div>
                     
                     <div className={classes.status}>
-                        <Posts/>
+                        <Posts userId={userId} />
                     </div>
                   
                 </div>
